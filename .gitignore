@@ -1,0 +1,48 @@
+# --- ESP-IDF build files ---
+build/
+*.bin
+*.elf
+*.map
+
+# --- ESP-IDF configuration files ---
+sdkconfig
+sdkconfig.old
+CMakeCache.txt
+CMakeFiles/
+cmake-build-*/
+cmake_install.cmake
+Makefile
+*.cmake
+
+# --- Python virtual environments ---
+.env/
+.venv/
+env/
+venv/
+__pycache__/
+*.py[cod]
+*.pyd
+
+# --- Logs and temporary files ---
+*.log
+*.tmp
+*.bak
+*.swp
+*.swo
+*.orig
+
+# --- ESP-IDF tooling and output ---
+flash_project_args
+partition_table/*.bin
+bootloader/*.bin
+
+# --- VS Code settings ---
+.vscode/
+
+# --- OS & editor metadata ---
+.DS_Store
+Thumbs.db
+
+# --- Security: DO NOT COMMIT private keys ---
+*.pem
+*.key
