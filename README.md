@@ -32,4 +32,4 @@ I (2325) INFO: Switching GPIO 10: OFF
 
 - If the LED isn't blinking, check the GPIO or the LED type selection in the `Example Configuration` menu.
 
-For any technical queries, please open an [issue](https://github.com/espressif/esp-idf/issues) on GitHub. We will get back to you soon.
+For any technical queries, Check [issue](https://github.com/espressif/esp-idf/issues) on GitHub.
