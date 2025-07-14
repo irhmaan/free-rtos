@@ -12,18 +12,26 @@
 #define delay_time 50
 #define Btn_GPIO GPIO_NUM_19
 #define Led_GPIO GPIO_NUM_5
+#define debounce_time_ms 200
 
 SemaphoreHandle_t xSemaphore = NULL;
+volatile TickType_t last_intr_time = 0;
 
 //* ISR Handler
 static void IRAM_ATTR gpio_isr_handler(void *args)
 {
-    BaseType_t xHighPriorityTaskWoken = pdFALSE;
-    xSemaphoreGiveFromISR(xSemaphore, &xHighPriorityTaskWoken);
 
-    if (xHighPriorityTaskWoken)
+    TickType_t curr_time = xTaskGetTickCountFromISR();
+    if ((curr_time - last_intr_time) > pdMS_TO_TICKS(debounce_time_ms))
     {
-        portYIELD_FROM_ISR();
+        last_intr_time = curr_time;
+        BaseType_t xHighPriorityTaskWoken = pdFALSE;
+        xSemaphoreGiveFromISR(xSemaphore, &xHighPriorityTaskWoken);
+
+        if (xHighPriorityTaskWoken)
+        {
+            portYIELD_FROM_ISR();
+        }
     }
 }
 
