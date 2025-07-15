@@ -39,8 +39,16 @@ static void IRAM_ATTR gpio_isr_handler(void *args)
 void led_task(void *args)
 {
     gpio_set_direction(Led_GPIO, GPIO_MODE_OUTPUT);
-    bool led_state = false;
+    bool led_state = gpio_get_level(Led_GPIO);
 
+    if (led_state)
+    {
+        ESP_LOGI("Btn State", "Btn state is HIGH");
+    }
+    else
+    {
+        ESP_LOGI("Btn State", "Btn state is LOW");
+    }
     while (1)
     {
         /* code */
@@ -65,7 +73,7 @@ void app_main()
     // configure the btn pin
 
     gpio_config_t io_config = {
-        .intr_type = GPIO_INTR_NEGEDGE, // falling edge interrupt
+        .intr_type = GPIO_INTR_POSEDGE, // falling edge interrupt
         .mode = GPIO_MODE_INPUT,
         .pin_bit_mask = (1ULL << Btn_GPIO),
         .pull_up_en = GPIO_PULLUP_ENABLE,
